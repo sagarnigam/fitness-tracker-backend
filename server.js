@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json()); 
 
 app.use('/api/exercises', require('./routes/exerciseRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // use of custom middleware to handle error
 app.use(errorHandler);
