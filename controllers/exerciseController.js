@@ -3,7 +3,7 @@ const Exercise = require("../models/exerciseModel");
 
 //@description: Get all Exercises
 //@route: GET /api/Exercises
-//@access public
+//@access private
 const getExercises = asyncHandler(async (req, res) => {
   const exercises = await Exercise.find();
   res.status(200).json(exercises);
@@ -11,7 +11,7 @@ const getExercises = asyncHandler(async (req, res) => {
 
 //@description: Get Exercise with id
 //@route: GET /api/exercise/:id
-//@access public
+//@access private
 const getExercise = asyncHandler(async (req, res) => {
   const exercise = await Exercise.findById(req.params.id);
   console.log(exercise);
@@ -24,7 +24,7 @@ const getExercise = asyncHandler(async (req, res) => {
 
 //@description: Create new Exercise
 //@route: POST /api/exercise
-//@access public
+//@access private
 const createExercise = asyncHandler(async (req, res) => {
   const { name, description, muscles, instructions } = req.body;
   if (!name || !description || !muscles || !instructions) {
@@ -44,7 +44,7 @@ const createExercise = asyncHandler(async (req, res) => {
 
 //@description: Update Exercise with id
 //@route: PUT /api/Exercise/:id
-//@access public
+//@access private
 const updateExercise = asyncHandler(async (req, res) => {
   const exercise = await Exercise.findById(req.params.id);
   if (!exercise) {
@@ -65,7 +65,7 @@ const updateExercise = asyncHandler(async (req, res) => {
 
 //@description: Delete Exercise with id
 //@route: DELETE /api/Exercise/:id
-//@access public
+//@access private
 const deleteExercise = asyncHandler(async (req, res) => {
   const exercise = await Exercise.findById(req.params.id);
   console.log(exercise);
