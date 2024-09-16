@@ -5,6 +5,10 @@ const exerciseSchema = mongoose.Schema({
     type: String,
     requied: [true, "Please add the exercise name"],
   },
+  videoId: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     requied: [true, "Please add the exercise description"],
