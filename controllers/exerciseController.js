@@ -14,7 +14,7 @@ const getExercises = asyncHandler(async (req, res) => {
 //@access private
 const getExercise = asyncHandler(async (req, res) => {
   const exercise = await Exercise.findById(req.params.id);
-  console.log(exercise);
+  
   if (!exercise) {
     res.status(404);
     throw new Error("Exercise not found");
