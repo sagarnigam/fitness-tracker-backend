@@ -1,87 +1,91 @@
 const asyncHandler = require("express-async-handler");
-const Exercise = require("../models/exerciseModel");
+const WorkoutProgram = require("../models/workoutProgramModel");
 
 //@description: Get all Workout Programs
-//@route: GET /api/WorkoutPrograms
+//@route: GET /api/workoutPrograms
 //@access private
 const getWorkoutPrograms = asyncHandler(async (req, res) => {
-  const exercises = await Exercise.find();
-  res.status(200).json(exercises);
+  const workoutPrograms = await WorkoutProgram.find();
+  res.status(200).json(workoutPrograms);
 });
 
-//@description: Get Exercise with id
-//@route: GET /api/WorkoutPrograms/:id
+//@description: Get a Workout Program by ID
+//@route: GET /api/workoutProgram/:id
 //@access private
 const getWorkoutProgram = asyncHandler(async (req, res) => {
-  const exercise = await Exercise.findById(req.params.id);
-  
-  if (!exercise) {
+  const workoutProgram = await WorkoutProgram.findById(req.params.id);
+
+  if (!workoutProgram) {
     res.status(404);
-    throw new Error("Exercise not found");
+    throw new Error("Workout program not found");
   }
-  res.status(200).json(exercise);
+
+  res.status(200).json(workoutProgram);
 });
 
-//@description: Create new Workout Program
-//@route: POST /api/WorkoutPrograms
+//@description: Create a new Workout Program
+//@route: POST /api/workoutProgram
 //@access private
 const createWorkoutProgram = asyncHandler(async (req, res) => {
-    const { name, videoId, description, muscles, instructions } = req.body;
-    if (!name || !videoId || !description || !muscles || !instructions) {
-      res.status(400);
-      throw new Error("All fields are required");
-    }
-  
-    const exercise = await Exercise.create({
-      name,
-      videoId,
-      description,
-      muscles,
-      instructions,
-    });
-  
-    res.status(201).json(exercise);
-  });
-  
-  //@description: Update Workout Program
-  //@route: PUT /api/WorkoutPrograms
-  //@access private
-  const updateWorkoutProgram = asyncHandler(async (req, res) => {
-    const exercise = await Exercise.findById(req.params.id);
-    if (!exercise) {
-      res.status(404);
-      throw new Error("Exercise not found");
-    }
-  
-    const updatedExercise = await Exercise.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        new: true,
-      }
+  const { name, description, programImage, programType, programLength } =
+    req.body;
+
+  if (!name || !programType || !programLength) {
+    res.status(400);
+    throw new Error(
+      "Name, program type, and program length are required fields"
     );
-  
-    res.status(200).json(updatedExercise);
+  }
+
+  const workoutProgram = await WorkoutProgram.create({
+    name,
+    description,
+    programImage,
+    programType,
+    programLength,
   });
-  
-  //@description: Delete Workout Program
-  //@route: DELETE /api/WorkoutPrograms
-  //@access private
-  const deleteWorkoutProgram = asyncHandler(async (req, res) => {
-    const exercise = await Exercise.findById(req.params.id);
-    if (!exercise) {
-      res.status(404);
-      throw new Error("Exercise not found");
-    }
-  
-    await Exercise.findByIdAndDelete(req.params.id);
-    res.status(200).json(exercise);
-  });
-  
-  module.exports = {
-    getWorkoutPrograms,
-    getWorkoutProgram,
-    createWorkoutProgram,
-    updateWorkoutProgram,
-    deleteWorkoutProgram,
-  };
+
+  res.status(201).json(workoutProgram);
+});
+
+//@description: Update a Workout Program by ID
+//@route: PUT /api/workoutProgram/:id
+//@access private
+const updateWorkoutProgram = asyncHandler(async (req, res) => {
+  const workoutProgram = await WorkoutProgram.findById(req.params.id);
+
+  if (!workoutProgram) {
+    res.status(404);
+    throw new Error("Workout program not found");
+  }
+
+  const updatedWorkoutProgram = await WorkoutProgram.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  res.status(200).json(updatedWorkoutProgram);
+});
+
+//@description: Delete a Workout Program by ID
+//@route: DELETE /api/workoutProgram/:id
+//@access private
+const deleteWorkoutProgram = asyncHandler(async (req, res) => {
+  const workoutProgram = await WorkoutProgram.findById(req.params.id);
+
+  if (!workoutProgram) {
+    res.status(404);
+    throw new Error("Workout program not found");
+  }
+
+  await WorkoutProgram.findByIdAndDelete(req.params.id);
+  res.status(200).json({ message: "Workout program deleted" });
+});
+
+module.exports = {
+  getWorkoutPrograms,
+  getWorkoutProgram,
+  createWorkoutProgram,
+  updateWorkoutProgram,
+  deleteWorkoutProgram,
+};

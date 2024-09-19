@@ -1,15 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.route('/').get(getWorkoutPrograms);
+const {
+  getWorkoutPrograms,
+  getWorkoutProgram,
+  createWorkoutProgram,
+  updateWorkoutProgram,
+  deleteWorkoutProgram,
+} = require("../controllers/workoutProgramController");
 
-router.route('/:id').get(getWorkoutProgram);
+// Route to get all workout programs
+router.get("/", getWorkoutPrograms);
 
-// router.route('/').post(createExercise);
+// Route to get a specific workout program by ID
+router.get("/:id", getWorkoutProgram);
 
-// router.route('/:id').put(updateExercise);
+// Route to create a new workout program
+router.post("/", createWorkoutProgram);
 
-// router.route('/:id').delete(deleteExercise);
+// Route to update a workout program by ID
+router.put("/:id", updateWorkoutProgram);
 
+// Route to delete a workout program by ID
+router.delete("/:id", deleteWorkoutProgram);
 
 module.exports = router;
