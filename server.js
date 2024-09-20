@@ -14,6 +14,8 @@ app.use(express.json());
 app.use('/api/exercises', require('./routes/exerciseRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/workoutprograms', require('./routes/workoutProgramRoutes'));
+app.use('/api/programStructure/:workoutProgramId/day/:day', require('./routes/programStructureRoutes'));
+
 
 // use of custom middleware to handle error
 app.use(errorHandler);
