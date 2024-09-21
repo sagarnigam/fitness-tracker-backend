@@ -9,15 +9,15 @@ const {
 } = require("../controllers/programStructureController");
 
 // Route to get a specific workouts program stucture by ID and day
-router.get("/", getProgramStructureByDay);
+router.get("/workoutprogramid/:workoutProgramId/day/:day", getProgramStructureByDay);
 
 // Route to create a new workouts program stucture by ID and day
-router.post("/", createProgramStructure);
+router.post("/workoutprogramid/:workoutProgramId/day/:day", createProgramStructure);
 
 // Route to update a workouts program stucture by ID and day
-router.put("/", updateProgramStructure);
+router.put("/workoutprogramid/:workoutProgramId/day/:day", updateProgramStructure);
 
 // Route to delete a workouts program stucture by ID and day
-router.delete("/", deleteProgramStructure);
+router.delete("/workoutprogramid/:workoutProgramId/day/:day", deleteProgramStructure);
 
 module.exports = router;
