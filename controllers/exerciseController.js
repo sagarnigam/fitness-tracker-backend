@@ -26,8 +26,8 @@ const getExercise = asyncHandler(async (req, res) => {
 //@route: POST /api/exercise
 //@access private
 const createExercise = asyncHandler(async (req, res) => {
-  const { name, videoId, description, muscles, instructions } = req.body;
-  if (!name || !videoId || !description || !muscles || !instructions) {
+  const { name, videoId, description, mainTargetMuscle, instructions } = req.body;
+  if (!name || !videoId || !description || !mainTargetMuscle || !instructions) {
     res.status(400);
     throw new Error("All fields are required");
   }
@@ -36,7 +36,7 @@ const createExercise = asyncHandler(async (req, res) => {
     name,
     videoId,
     description,
-    muscles,
+    mainTargetMuscle,
     instructions,
   });
 

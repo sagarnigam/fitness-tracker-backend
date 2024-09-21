@@ -13,9 +13,9 @@ const exerciseSchema = mongoose.Schema({
     type: String,
     requied: [true, "Please add the exercise description"],
   },
-  muscles: {
-    type: [String],
-    required: true,
+  mainTargetMuscle: {
+    type: String,
+    requied: true
   },
   instructions: {
     type: [String],
