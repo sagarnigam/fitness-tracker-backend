@@ -22,6 +22,16 @@ const getExercise = asyncHandler(async (req, res) => {
   res.status(200).json(exercise);
 });
 
+//@description: Get Exercise with body part
+//@route: GET /api/exercise/bodyPart/:bodyPart
+//@access private
+const getExerciseByBodyPart = asyncHandler(async (req, res) => {
+  const exercises = await Exercise.find();
+
+  const filteredExercisesByBodyPart = exercises.filter((exercise) => exercise.mainTargetMuscle.toLowerCase() === req.params.id);
+  res.status(200).json(filteredExercisesByBodyPart);
+});
+
 //@description: Create new Exercise
 //@route: POST /api/exercise
 //@access private
@@ -82,6 +92,7 @@ const deleteExercise = asyncHandler(async (req, res) => {
 module.exports = {
   getExercises,
   getExercise,
+  getExerciseByBodyPart,
   updateExercise,
   createExercise,
   deleteExercise,
