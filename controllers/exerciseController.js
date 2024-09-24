@@ -28,7 +28,7 @@ const getExercise = asyncHandler(async (req, res) => {
 const getExerciseByBodyPart = asyncHandler(async (req, res) => {
   const exercises = await Exercise.find();
 
-  const filteredExercisesByBodyPart = exercises.filter((exercise) => exercise.mainTargetMuscle.toLowerCase() === req.params.id);
+  const filteredExercisesByBodyPart = exercises.filter((exercise) => exercise.mainTargetMuscle.toLowerCase() === req.params.id.toLowerCase());
   res.status(200).json(filteredExercisesByBodyPart);
 });
 
