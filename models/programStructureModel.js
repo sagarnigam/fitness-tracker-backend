@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const programExercisesSchema = new Schema({
   type: {
     type: String,
-    enum: ["individual-set", "super-set", "giant-set"],
+    enum: ["individual-set", "super-set", "gaint-set"],
     required: true,
   },
   exercise: { type: [String], required: true }, // array of strings (exercise IDs or names)
