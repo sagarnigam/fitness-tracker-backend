@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
+const UserWeight = require("../models/weightModel");
 
 //@description: Get users weight information
 //@route: GET /api/user/:id/weights
@@ -8,10 +8,10 @@ const getUserweights = asyncHandler(async (req, res) => {
   const { userid } = req.params;
 
   try {
-    const userWeightInfo = await User.findOne({ userid });
+    const userWeightInfo = await UserWeight.findOne({ userid });
 
     if (!userWeightInfo) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "no user weight info available" });
     }
 
     res.json(userWeightInfo.weights);
@@ -28,17 +28,16 @@ const addUserweights = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { weight, date } = req.body;
 
-  if (!userId || !weight) {
-    return res.status(400).json({ error: "Username and weight are required" });
+  if (!id || !weight) {
+    return res.status(400).json({ error: "UserId and weight are required" });
   }
 
   try {
-    // Find user by username
-    let userWeightInfo = await User.findOne({ userId });
+    let userWeightInfo = await UserWeight.findOne({ userId });
+    console.log(userWeightInfo);
 
-    // If user doesn't exist, create a new one
     if (!userWeightInfo) {
-        userWeightInfo = new User({ userId, weights: [{ date, weight }] });
+        userWeightInfo = new UserWeight({ userId, weights: [{ date, weight }] });
     } else {
       // If user exists, update the weight for the date
       const existingWeight = userWeightInfo.weights.find(
@@ -65,5 +64,5 @@ const addUserweights = asyncHandler(async (req, res) => {
 
 module.exports = {
   getUserweights,
-  addUserWeights,
+  addUserweights,
 };

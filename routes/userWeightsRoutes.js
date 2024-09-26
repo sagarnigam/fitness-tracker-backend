@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { addUserWeights, getUserWeights } = require('../controllers/userWeightsController');
+const { addUserweights, getUserweights } = require('../controllers/userWeightsController');
 
-router.post('/', addUserWeights)
+router.post('/:userId/weights', addUserweights)
 
-router.get('/', getUserWeights)
+router.get('/:userId/weights', getUserweights)
 
 module.exports = router;

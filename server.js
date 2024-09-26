@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use('/api/exercises', require('./routes/exerciseRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/user/:id/weights', require('./routes/userRoutes'));
+app.use('/api/user', require('./routes/userWeightsRoutes'));
 app.use('/api/workoutprograms', require('./routes/workoutProgramRoutes'));
 app.use('/api/programStructure/', require('./routes/programStructureRoutes'));
 
@@ -24,3 +24,6 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log('listening on the port ' + port);
 });
+
+
+// http://localhost:5001/api/user/66e6ca89ca972d1ebe2ce9ce/weights
