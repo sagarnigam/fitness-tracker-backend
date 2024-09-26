@@ -13,6 +13,7 @@ app.use(express.json());
 
 app.use('/api/exercises', require('./routes/exerciseRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/user/:id/weights', require('./routes/userRoutes'));
 app.use('/api/workoutprograms', require('./routes/workoutProgramRoutes'));
 app.use('/api/programStructure/', require('./routes/programStructureRoutes'));
 
