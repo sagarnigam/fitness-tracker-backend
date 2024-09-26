@@ -7,18 +7,13 @@ const UserWeight = require("../models/weightModel");
 const getUserweights = asyncHandler(async (req, res) => {
   const { userid } = req.params;
 
-  try {
-    const userWeightInfo = await UserWeight.findOne({ userid });
+  const userWeightInfo = await UserWeight.findOne({ userid });
 
-    if (!userWeightInfo) {
-      return res.status(404).json({ error: "no user weight info available" });
-    }
-
-    res.json(userWeightInfo.weights);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+  if (!userWeightInfo) {
+    return res.status(404).json({ error: "no user weight info available" });
   }
+
+  res.status(200).json(userWeightInfo.weights);
 });
 
 //@description: Add or updates users weight information
@@ -32,34 +27,29 @@ const addUserweights = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "UserId and weight are required" });
   }
 
-  try {
-    let userWeightInfo = await UserWeight.findOne({ userId });
-    console.log(userWeightInfo);
+  let userWeightInfo = await UserWeight.findOne({ userId });
+  console.log(userWeightInfo);
 
-    if (!userWeightInfo) {
-        userWeightInfo = new UserWeight({ userId, weights: [{ date, weight }] });
-    } else {
-      // If user exists, update the weight for the date
-      const existingWeight = userWeightInfo.weights.find(
-        (record) =>
-          record.date.toISOString().split("T")[0] ===
-          new Date(date).toISOString().split("T")[0]
-      );
+  //   if (!userWeightInfo) {
+  //     userWeightInfo = await UserWeight.create({ userId, weights: [{ date, weight }] });
+  //   } else {
+  //     // If user exists, update the weight for the date
+  //     const existingWeight = userWeightInfo.weights.find(
+  //       (record) =>
+  //         record.date.toISOString().split("T")[0] ===
+  //         new Date(date).toISOString().split("T")[0]
+  //     );
 
-      if (existingWeight) {
-        existingWeight.weight = weight;
-      } else {
-        userWeightInfo.weights.push({ date, weight });
-      }
-    }
+  //     if (existingWeight) {
+  //       existingWeight.weight = weight;
+  //     } else {
+  //       userWeightInfo.weights.push({ date, weight });
+  //     }
+  //   }
 
-    // Save the user data
-    await userWeightInfo.save();
-    res.json({ message: "Weight added/updated successfully", userWeightInfo });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
+  //   // Save the user data
+  //   const updatedUserWeightInfo = await userWeightInfo.save();
+  //   res.status(200).json(updatedUserWeightInfo);
 });
 
 module.exports = {
