@@ -23,33 +23,33 @@ const addUserweights = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { weight, date } = req.body;
 
-  if (!id || !weight) {
+  if (!userId || !weight) {
     return res.status(400).json({ error: "UserId and weight are required" });
   }
 
   let userWeightInfo = await UserWeight.findOne({ userId });
-  console.log(userWeightInfo);
+  
 
-  //   if (!userWeightInfo) {
-  //     userWeightInfo = await UserWeight.create({ userId, weights: [{ date, weight }] });
-  //   } else {
-  //     // If user exists, update the weight for the date
-  //     const existingWeight = userWeightInfo.weights.find(
-  //       (record) =>
-  //         record.date.toISOString().split("T")[0] ===
-  //         new Date(date).toISOString().split("T")[0]
-  //     );
+    if (!userWeightInfo) {
+      userWeightInfo = await UserWeight.create({ userId, weights: [{ date, weight }] });
+    } else {
+      // If user exists, update the weight for the date
+      const existingWeight = userWeightInfo.weights.find(
+        (record) =>
+          record.date.toISOString().split("T")[0] ===
+          new Date(date).toISOString().split("T")[0]
+      );
 
-  //     if (existingWeight) {
-  //       existingWeight.weight = weight;
-  //     } else {
-  //       userWeightInfo.weights.push({ date, weight });
-  //     }
-  //   }
+      if (existingWeight) {
+        existingWeight.weight = weight;
+      } else {
+        userWeightInfo.weights.push({ date, weight });
+      }
+    }
 
-  //   // Save the user data
-  //   const updatedUserWeightInfo = await userWeightInfo.save();
-  //   res.status(200).json(updatedUserWeightInfo);
+    // Save the user data
+    const updatedUserWeightInfo = await userWeightInfo.save();
+    res.status(200).json(updatedUserWeightInfo);
 });
 
 module.exports = {

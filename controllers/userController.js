@@ -76,12 +76,13 @@ const registerUser = asyncHandler(async (req, res) => {
 //@description: Get user information
 //@route: GET /api/users/currentuser
 //@access private
-const getUser = asyncHandler(async (req, res) => {
-  res.json(req.user);
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  res.status(200).json(users);
 });
 
 module.exports = {
-  getUser,
+  getUsers,
   loginUser,
   registerUser,
 };

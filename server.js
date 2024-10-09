@@ -24,6 +24,3 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log('listening on the port ' + port);
 });
-
-
-// http://localhost:5001/api/user/66e6ca89ca972d1ebe2ce9ce/weights
